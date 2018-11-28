@@ -2,7 +2,6 @@ var mySong;
 var analyzer;
 var myImage;
 var volume;
-var striscia = [];
 
 function preload(){
   // put preload code here
@@ -21,16 +20,6 @@ function setup() {
 
   frameRate(20);
 
-
-  for(var x = 0; x < width + 10; x += height/100)
-  {
-    volume = analyzer.getLevel();
-    volume = map(volume, 0, 1, 50, width/2);
-      var miePalleColorate = new PalleColorate(x, height - height/20, 20);
-
-      striscia.push(miePalleColorate);
-  }
-
 }
 
 function draw() {
@@ -46,11 +35,26 @@ if(mouseX > width/2 - height/6 && mouseY > height/2 - height/6 && mouseX < width
   if(mySong.isPlaying() == false){
    mySong.play();
  }
+
+       fill('white');
+       textSize(35);
+       textFont('Helvetica');
+       textStyle(BOLD);
+       text('TIENI PREMUTO PER VEDERE LA MAGIA DELLA MUSICA', width/8, height/8);
+
  if(mouseIsPressed){
 
-   for(var f = 0; f < striscia.length; f++){
-       striscia[f].display();
-     }
+   for(var x = 0; x < width + 10; x += height/70)
+   {
+     fill(random(0, 275), random(13, 230), random(13, 145));
+     stroke('#111111');
+     strokeWeight(3);
+     ellipse(x, height - height/20 - volume * random(0, 0.5), height/100 + volume/6);
+     textSize(35);
+     textFont('Helvetica');
+     textStyle(BOLD);
+     text('TIENI PREMUTO PER VEDERE LA MAGIA DELLA MUSICA', width/8, height/8);
+   }
 
    myImage.filter("invert");
 
@@ -85,20 +89,6 @@ else{
   noStroke();
   triangle(width/2 - height/20, height/2 - height/20, width/2 - height/20, height/2 + height/20, width/2 + height/18, height/2);
  }
-
-}
-
-function PalleColorate(_x1, _y1, _diameter1){
-  this.x = _x1;
-  this.y = _y1;
-  this.diameter = _diameter1;
-
-  this.display = function() {
-    fill(random(0, 275), random(13, 230), random(13, 145));
-    stroke('#111111');
-    strokeWeight(2);
-    ellipse(this.x, this.y, this.diameter);
-  }
 
 }
 
